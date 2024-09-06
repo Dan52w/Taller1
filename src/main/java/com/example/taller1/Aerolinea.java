@@ -17,4 +17,7 @@ public class Aerolinea {
     private String codigoAerolinea;
     private String paisOrigen;
 
+    @ManyToOne
+    @JoinColumn(name = "idVuelos")
+    private Vuelo vuelos;
 }

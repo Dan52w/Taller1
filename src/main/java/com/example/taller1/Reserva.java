@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "Reservas")
@@ -16,13 +17,16 @@ public class Reserva {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "idVuelo")
-    private Vuelo vuelo;
-
-    @ManyToOne
     @JoinColumn(name = "idCliente")
-    private Cliente cliente;
+    private Cliente clientes;
 
     private LocalDateTime fechaReserva;
     private int numeroPasajeros;
+
+    @ManyToOne
+    @JoinColumn(name = "idPasajero")
+    private Pasajero pasajeros;
+
+    @OneToMany(mappedBy = "reserva")
+    private List<VueloReserva> vuelosReservas;
 }

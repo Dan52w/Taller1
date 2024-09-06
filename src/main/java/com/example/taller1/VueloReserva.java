@@ -4,22 +4,20 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.List;
-
 @Entity
-@Table(name = "Aeropuertos")
+@Table(name = "VuelosReservados")
 @Getter
 @Setter
-public class Aeropuerto {
+public class VueloReserva {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private long id;
 
-    private String nombre;
-    private String ciudad;
-    private String pais;
+    @ManyToOne
+    @JoinColumn(name = "idReserva")
+    private Reserva reserva;
 
     @ManyToOne
     @JoinColumn(name = "idVuelo")
-    private Vuelo vuelos;
+    private Vuelo vuelo;
 }

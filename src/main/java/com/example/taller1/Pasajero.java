@@ -1,26 +1,28 @@
 package com.example.taller1;
 
-import jakarta.persistence.*;
+import  jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Entity
-@Table(name = "Clientes")
+@Table(name = "Pasajeros")
 @Getter
 @Setter
-public class Cliente {
+public class Pasajero {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String nombre;
     private String apellido;
-    private String dirreccion;
-    private int telefono;
-    private String correo;
+    private int edad;
+    private String sexo;
+    private int cedula;
+    private LocalDate fechaVuelo;
 
-    @OneToMany(mappedBy = "clientes")
+    @OneToMany(mappedBy = "pasajeros")
     private List<Reserva> reservas;
 }

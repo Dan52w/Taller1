@@ -23,9 +23,12 @@ public class Vuelo {
     private LocalDateTime duracion;
     private int capacidad;
 
-    @OneToMany(mappedBy = "idVuelo")
-    private List<Reserva> resevas;
+    @OneToMany(mappedBy = "vuelos")
+    private List<Aeropuerto> aeropuertos;
 
-    @ManyToMany(mappedBy = "idVuelo")
-    private List<Vuelo> vuelos;
+    @OneToMany(mappedBy = "vuelos")
+    private List<Aerolinea> aerolineas;
+
+    @OneToMany(mappedBy = "vuelo")
+    private List<VueloReserva> vuelosReservas;
 }
