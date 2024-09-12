@@ -29,6 +29,6 @@ public class Vuelo {
     @OneToMany(mappedBy = "vuelos")
     private List<Aerolinea> aerolineas;
 
-    @OneToMany(mappedBy = "vuelo")
-    private List<VueloReserva> vuelosReservas;
+    @ManyToMany(mappedBy = "idReservas")
+    private List<Reserva> reservas;
 }

@@ -27,6 +27,12 @@ public class Reserva {
     @JoinColumn(name = "idPasajero")
     private Pasajero pasajeros;
 
-    @OneToMany(mappedBy = "reserva")
-    private List<VueloReserva> vuelosReservas;
+    @ManyToMany
+    @JoinTable(
+            name = "ReservaVuelos",
+            joinColumns = @JoinColumn(name = "idVuelo",  referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "idReserva", referencedColumnName = "id")
+    )
+
+    private List<Vuelo> vuelos;
 }
