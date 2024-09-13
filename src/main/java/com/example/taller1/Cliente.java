@@ -16,11 +16,22 @@ public class Cliente {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false)
     private String apellido;
+
+    @Column(nullable = false)
     private String dirreccion;
+
+    @Column(nullable = false)
     private int telefono;
+
+    @Column(nullable = false)
     private String email;
+
+    @Column(nullable = false)
     private LocalDateTime fechaNacimiento;
 
     @OneToMany(mappedBy = "clientes")

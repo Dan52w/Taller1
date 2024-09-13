@@ -15,8 +15,13 @@ public class Aeropuerto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false)
     private String ciudad;
+
+    @Column(nullable = false)
     private String pais;
 
     @ManyToOne

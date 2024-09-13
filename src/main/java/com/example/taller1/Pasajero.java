@@ -16,11 +16,22 @@ public class Pasajero {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false)
     private String apellido;
+
+    @Column(nullable = false)
     private int edad;
+
+    @Column(nullable = false)
     private String sexo;
+
+    @Column(nullable = false)
     private int cedula;
+
+    @Column(nullable = false)
     private LocalDate fechaVuelo;
 
     @OneToMany(mappedBy = "pasajeros")

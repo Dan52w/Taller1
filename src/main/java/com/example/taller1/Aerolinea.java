@@ -13,8 +13,13 @@ public class Aerolinea {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String nombre;
+
+    @Column(nullable = false)
     private String codigoAerolinea;
+
+    @Column(nullable = false)
     private String paisOrigen;
 
     @ManyToOne

@@ -16,11 +16,22 @@ public class Vuelo {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Column(nullable = false)
     private String origen;
+
+    @Column(nullable = false)
     private String destino;
+
+    @Column(nullable = false)
     private LocalDateTime fechaSalida;
+
+    @Column(nullable = false)
     private LocalDateTime horaLlegada;
+
+    @Column(nullable = false)
     private LocalDateTime duracion;
+
+    @Column(nullable = false)
     private int capacidad;
 
     @OneToMany(mappedBy = "vuelos")

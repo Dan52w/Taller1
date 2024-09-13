@@ -20,7 +20,10 @@ public class Reserva {
     @JoinColumn(name = "idCliente")
     private Cliente clientes;
 
+    @Column(nullable = false)
     private LocalDateTime fechaReserva;
+
+    @Column(nullable = false)
     private int numeroPasajeros;
 
     @ManyToOne
