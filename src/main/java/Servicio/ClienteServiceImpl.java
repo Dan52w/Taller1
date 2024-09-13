@@ -13,8 +13,8 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
-    public List<Cliente> guardarCliente(Cliente cliente) {
-        return ClienteService.super.guardarCliente(cliente);
+    public Cliente guardarCliente(Cliente cliente) {
+        return clienteRepository.save(cliente);
     }
 
     @Override
