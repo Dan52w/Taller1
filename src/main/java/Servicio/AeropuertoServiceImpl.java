@@ -49,4 +49,9 @@ public class AeropuertoServiceImpl implements AeropuertoService{
             return aeropuertoRepository.save(oldAeropuerto);
         });
     }
+
+    @Override
+    public void borrarAeropuerto(Long id) {
+        aeropuertoRepository.deleteById(id);
+    }
 }

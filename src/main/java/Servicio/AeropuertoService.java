@@ -12,4 +12,5 @@ public interface AeropuertoService {
     default List<Aeropuerto> buscarAeropuerto(){ return null;}
     default List<Aeropuerto> buscarAeropuertoByIds(List<Long> ids) { return null;}
     default Optional<Aeropuerto> actualizarAeropuerto(Long id,Aeropuerto aeropuerto) { return null;}
+    void borrarAeropuerto(Long id);
 }
