@@ -1,4 +1,4 @@
-package Servicio;
+package respositoy;
 
 import com.example.taller1.Vuelo;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -12,4 +12,5 @@ public interface VueloService {
     default List<Vuelo> buscarVuelos() {return null;}
     default List<Vuelo> buscarVueloByIds(List<Long> ids) {return null;}
     default Optional<Vuelo> actualizarVuelo(Long id,Vuelo vuelo) {return null;}
+    void borrarVuelo(Long id);
 }

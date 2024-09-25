@@ -1,10 +1,13 @@
 package Servicio;
 
 import com.example.taller1.Aeropuerto;
+import org.springframework.stereotype.Service;
+import respositoy.AeropuertoRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AeropuertoServiceImpl implements AeropuertoService{
     private AeropuertoRepository aeropuertoRepository;
 

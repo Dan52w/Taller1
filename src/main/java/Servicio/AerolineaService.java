@@ -12,4 +12,5 @@ public interface AerolineaService {
     default List<Aerolinea> buscarAerolinea() {return null;}
     default List<Aerolinea> buscarAerolineaByIds(List<Long> ids) {return null;}
     default Optional<Aerolinea> actualizarAerolinea(Long id, Aerolinea aerolinea) {return null;}
+    void borrarAerolinea(Long id);
 }

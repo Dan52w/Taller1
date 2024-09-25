@@ -1,10 +1,13 @@
 package Servicio;
 
 import com.example.taller1.Aerolinea;
+import org.springframework.stereotype.Service;
+import respositoy.AerolineaRespository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AerolineaServiceImpl implements AerolineaService {
     private AerolineaRespository aerolineaRepository;
 
@@ -45,5 +48,10 @@ public class AerolineaServiceImpl implements AerolineaService {
             oldAerolinea.setPaisOrigen(aerolinea.getPaisOrigen());
             return aerolineaRepository.save(oldAerolinea);
         });
+    }
+
+    @Override
+    public void borrarAerolinea(Long id) {
+        aerolineaRepository.deleteById(id);
     }
 }

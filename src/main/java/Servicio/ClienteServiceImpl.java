@@ -1,10 +1,13 @@
 package Servicio;
 
 import com.example.taller1.Cliente;
+import org.springframework.stereotype.Service;
+import respositoy.ClienteRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ClienteServiceImpl implements ClienteService{
     private ClienteRepository clienteRepository;
 
@@ -48,5 +51,10 @@ public class ClienteServiceImpl implements ClienteService{
             oldClient.setDirreccion(cliente.getDirreccion());
             return clienteRepository.save(oldClient);
         });
+    }
+
+    @Override
+    public void borrarCliente(Long id) {
+        clienteRepository.deleteById(id);
     }
 }

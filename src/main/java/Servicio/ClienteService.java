@@ -12,4 +12,5 @@ public interface ClienteService {
     default List<Cliente> buscarCliente() {return null;}
     default List<Cliente> buscarClientebyIds(List<Long> ids) {return null;}
     default Optional<Cliente> actualizarCliente(Long id,Cliente cliente) { return null;}
+    void borrarCliente(Long id);
 }

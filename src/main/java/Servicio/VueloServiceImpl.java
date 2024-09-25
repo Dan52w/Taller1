@@ -1,10 +1,13 @@
 package Servicio;
 
 import com.example.taller1.Vuelo;
+import org.springframework.stereotype.Service;
+import respositoy.VueloRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class VueloServiceImpl implements VueloService{
     private VueloRepository vueloRepository;
 
@@ -48,5 +51,10 @@ public class VueloServiceImpl implements VueloService{
             oldVuelo.setFechaSalida(vuelo.getFechaSalida());
             return vueloRepository.save(oldVuelo);
         });
+    }
+
+    @Override
+    public void borrarVuelo(Long id) {
+        vueloRepository.deleteById(id);
     }
 }

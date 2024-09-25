@@ -12,4 +12,5 @@ public interface PasajeroService {
     default List<Pasajero> buscarPasajerosByNombre(String nombre) {return null;}
     default List<Pasajero> buscarPasajerosByIds(List<Long> ids) {return null;}
     default Optional<Pasajero> actualizarPasajero(Long id,Pasajero pasajero) {return null;}
+    void borrarPasajero(Long id);
 }
