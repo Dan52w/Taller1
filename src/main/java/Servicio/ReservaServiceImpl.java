@@ -1,11 +1,13 @@
 package Servicio;
 
 import com.example.taller1.Reserva;
+import org.springframework.stereotype.Service;
 import respositoy.ReservaRepository;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ReservaServiceImpl implements ReservaService {
     private ReservaRepository reservaRepository;
 
@@ -43,12 +45,15 @@ public class ReservaServiceImpl implements ReservaService {
         return reservaRepository.findById(id).map(oldReserva -> {
             oldReserva.setId(reserva.getId());
             oldReserva.setFechaReserva(reserva.getFechaReserva());
+            oldReserva.setClientes(reserva.getClientes());
+            oldReserva.setNumeroPasajeros(reserva.getNumeroPasajeros());
+            oldReserva.setPasajeros(reserva.getPasajeros());
             return reservaRepository.save(oldReserva);
         });
     }
 
     @Override
     public void borrarReserva(Long id) {
-
+        reservaRepository.deleteById(id);
     }
 }

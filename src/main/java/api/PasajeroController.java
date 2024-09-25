@@ -48,7 +48,7 @@ public class PasajeroController {
     @DeleteMapping("/id")
     public ResponseEntity<Pasajero> deletePasajero(@PathVariable Long id){
         pasajeroService.borrarPasajero(id);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     private ResponseEntity<Pasajero> createNewPasajero(Pasajero pasajero) {
