@@ -2,6 +2,8 @@ package api;
 
 import Servicio.ClienteService;
 import com.example.taller1.Cliente;
+import dto.ClienteDto;
+import dto.ClienteWithIDDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,7 +45,7 @@ public class ClienteController {
     }
 
     @PostMapping()
-    public ResponseEntity<Cliente> createCliente(@RequestBody Cliente cliente) {
+    public ResponseEntity<ClienteWithIDDto> createCliente(@RequestBody ClienteDto cliente) {
         return createNewCliente(cliente); //La buena practica
         /* Mala practica
         if(Objects.nonNull(newCliente)){
@@ -57,15 +59,15 @@ public class ClienteController {
         Optional<Cliente> clienteUpdate = clienteService.actualizarCliente(id, cliente);
         return clienteUpdate.map(c -> ResponseEntity.ok(c))
                 .orElseGet(() ->{
-                    return createNewCliente(cliente);
+                    return null;//createNewCliente(cliente);
                 });
     }
 
-    private ResponseEntity<Cliente> createNewCliente(Cliente cliente) {
-        Cliente newCliente = clienteService.guardarCliente(cliente); //Esto me va a retornar un cliente
+    private ResponseEntity<ClienteWithIDDto> createNewCliente(ClienteDto cliente) {
+        ClienteWithIDDto newCliente = clienteService.guardarCliente(cliente); //Esto me va a retornar un cliente
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newCliente.getId())
+                .buildAndExpand(newCliente.Id())
                 .toUri(); //Construye la Url que luego se usa en location abajo, en el 201 que es el Created
         return ResponseEntity.created(location).body(newCliente);
     }
