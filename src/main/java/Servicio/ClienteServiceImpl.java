@@ -38,8 +38,9 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
-    public List<Cliente> buscarClientebyIds(List<Long> ids) {
-        return clienteRepository.findByIdIn(ids);
+    public List<ClienteDto> buscarClientebyIds(List<Long> ids) {
+        List<Cliente> clientes = clienteRepository.findByIdIn(ids);
+        return ListClientesToListClientesDto(clientes);
     }
 
     @Override

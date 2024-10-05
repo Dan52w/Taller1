@@ -1,6 +1,5 @@
 package Servicio;
 
-import com.example.taller1.Cliente;
 import dto.ClienteDto;
 
 import java.util.List;
@@ -11,7 +10,7 @@ public interface ClienteService {
     default Optional<ClienteDto> buscarClienteById(Long id) { return null;}
     default List<ClienteDto> buscarClienteByNombre(String nombre) { return null;}
     default List<ClienteDto> buscarCliente() {return null;}
-    default List<Cliente> buscarClientebyIds(List<Long> ids) {return null;}
+    default List<ClienteDto> buscarClientebyIds(List<Long> ids) {return null;}
     default Optional<ClienteDto> actualizarCliente(Long id, ClienteDto cliente) { return null;}
     void borrarCliente(Long id);
 }
