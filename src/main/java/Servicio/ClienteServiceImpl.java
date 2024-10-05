@@ -3,7 +3,6 @@ package Servicio;
 import com.example.taller1.Cliente;
 import dto.ClienteDto;
 import dto.ClienteMapper;
-import dto.ClienteWithIDDto;
 import org.springframework.stereotype.Service;
 import respositoy.ClienteRepository;
 
@@ -21,11 +20,10 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
-    public ClienteWithIDDto guardarCliente(ClienteDto cliente) {
-        Cliente clienteEntity = clienteMapper.INSTANCE.ClienteDtoToCliente(cliente);
-        ClienteWithIDDto clienteWithIDDto = clienteMapper.ClienteToClienteWithIDDto(clienteEntity);
+    public Cliente guardarCliente(ClienteDto cliente) {
+        Cliente clienteEntity = clienteMapper.INSTANCE.ToCliente(cliente);
         clienteRepository.save(clienteEntity);
-        return clienteWithIDDto;
+        return clienteEntity;
     }
 
     @Override

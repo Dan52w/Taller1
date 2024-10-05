@@ -1,6 +1,7 @@
 package dto;
 
 import com.example.taller1.Cliente;
+import jdk.jfr.Name;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
@@ -11,12 +12,18 @@ public interface ClienteMapper {
     ClienteMapper INSTANCE = Mappers.getMapper(ClienteMapper.class);
 
     //Target es el del ClienteDto y Source es el del cliente
-    @Mapping(target = "nombre", source = "nombre")
-    Cliente ClienteDtoToCliente(ClienteDto clienteDto);
+    @Name("SinID")
+    @Mapping(target = "id", source = "id", ignore = true)
+    Cliente ToCliente(ClienteDto clienteDto);
 
-    @Mapping(target = "nombre", source = "nombre")
-    ClienteDto ClienteToClienteDto(Cliente cliente);
+    @Name("ConID")
+    Cliente ToClienteWithId(ClienteDto clienteDto);
 
-    ClienteWithIDDto ClienteToClienteWithIDDto(Cliente cliente);
-    Cliente clienteWithIDDtoToCliente(ClienteWithIDDto clienteWithIDDto);
+    @Name("ConID")
+    @Mapping(target = "nombre", source = "nombre")
+    ClienteDto ToClienteDto(Cliente cliente);
+
+    @Name("SinID")
+    @Mapping(target = "id", source = "id", ignore = true)
+    ClienteDto ToClienteDtoWithId(Cliente cliente);
 }

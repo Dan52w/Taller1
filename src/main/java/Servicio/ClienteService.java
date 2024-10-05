@@ -2,13 +2,12 @@ package Servicio;
 
 import com.example.taller1.Cliente;
 import dto.ClienteDto;
-import dto.ClienteWithIDDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface ClienteService {
-    default ClienteWithIDDto guardarCliente(ClienteDto cliente) { return null;}
+    default Cliente guardarCliente(ClienteDto cliente) { return null;}
     default Optional<Cliente> buscarClienteById(Long id) { return null;}
     default List<Cliente> buscarClienteByNombre(String nombre) { return null;}
     default List<Cliente> buscarCliente() {return null;}

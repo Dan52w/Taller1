@@ -45,7 +45,7 @@ public class ClienteController {
     }
 
     @PostMapping()
-    public ResponseEntity<ClienteWithIDDto> createCliente(@RequestBody ClienteDto cliente) {
+    public ResponseEntity<Cliente> createCliente(@RequestBody ClienteDto cliente) {
         return createNewCliente(cliente); //La buena practica
         /* Mala practica
         if(Objects.nonNull(newCliente)){
@@ -63,11 +63,11 @@ public class ClienteController {
                 });
     }
 
-    private ResponseEntity<ClienteWithIDDto> createNewCliente(ClienteDto cliente) {
-        ClienteWithIDDto newCliente = clienteService.guardarCliente(cliente); //Esto me va a retornar un cliente
+    private ResponseEntity<Cliente> createNewCliente(ClienteDto cliente) {
+        Cliente newCliente = clienteService.guardarCliente(cliente); //Esto me va a retornar un cliente
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newCliente.Id())
+                .buildAndExpand(newCliente.getId())
                 .toUri(); //Construye la Url que luego se usa en location abajo, en el 201 que es el Created
         return ResponseEntity.created(location).body(newCliente);
     }
