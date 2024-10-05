@@ -23,13 +23,13 @@ public class ClienteController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Cliente>>  getAllClientes() {
+    public ResponseEntity<List<ClienteDto>>  getAllClientes() {
         return ResponseEntity.ok(clienteService.buscarCliente());
     }
 
     //Si el nombre del Param es igual al de abajo se asume, sino se especifica con () despues del path
     @GetMapping("/id")
-    public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) {
+    public ResponseEntity<ClienteDto> getClienteById(@PathVariable Long id) {
         //Opcion fea de hacerlo
         /*
         Optional<Cliente> cliente = clienteService.buscarClienteById(id);
@@ -45,8 +45,8 @@ public class ClienteController {
     }
 
     @PostMapping()
-    public ResponseEntity<Cliente> createCliente(@RequestBody ClienteDto cliente) {
-        return createNewCliente(cliente); //La buena practica
+    public ResponseEntity<ClienteDto> createCliente(@RequestBody ClienteDto clienteDto) {
+        return createNewCliente(clienteDto); //La buena practica
         /* Mala practica
         if(Objects.nonNull(newCliente)){
             return ResponseEntity.created(new URI("/api/v1/clientes/" + newCliente.getId()).body(newCliente));
@@ -55,25 +55,25 @@ public class ClienteController {
     }
 
     @PutMapping("/id")
-    public ResponseEntity<Cliente> updateCliente(@PathVariable Long id,@RequestBody Cliente cliente) {
-        Optional<Cliente> clienteUpdate = clienteService.actualizarCliente(id, cliente);
+    public ResponseEntity<ClienteDto> updateCliente(@PathVariable Long id,@RequestBody ClienteDto clienteDto) {
+        Optional<ClienteDto> clienteUpdate = clienteService.actualizarCliente(id, clienteDto);
         return clienteUpdate.map(c -> ResponseEntity.ok(c))
                 .orElseGet(() ->{
-                    return null;//createNewCliente(cliente);
+                    return createNewCliente(clienteDto);
                 });
     }
 
-    private ResponseEntity<Cliente> createNewCliente(ClienteDto cliente) {
-        Cliente newCliente = clienteService.guardarCliente(cliente); //Esto me va a retornar un cliente
+    private ResponseEntity<ClienteDto> createNewCliente(ClienteDto clienteDto) {
+        ClienteDto newCliente = clienteService.guardarCliente(clienteDto); //Esto me va a retornar un cliente
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newCliente.getId())
+                .buildAndExpand(newCliente.id())
                 .toUri(); //Construye la Url que luego se usa en location abajo, en el 201 que es el Created
         return ResponseEntity.created(location).body(newCliente);
     }
 
     @DeleteMapping("/id")
-    public ResponseEntity<Cliente> deleteCliente(@PathVariable Long id) {
+    public ResponseEntity<ClienteDto> deleteCliente(@PathVariable Long id) {
         clienteService.borrarCliente(id);
         return ResponseEntity.noContent().build();
     }

@@ -20,20 +20,21 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
-    public Cliente guardarCliente(ClienteDto cliente) {
+    public ClienteDto guardarCliente(ClienteDto cliente) {
         Cliente clienteEntity = clienteMapper.INSTANCE.ToCliente(cliente);
         clienteRepository.save(clienteEntity);
-        return clienteEntity;
+        return clienteMapper.INSTANCE.ToClienteDtoWithId(clienteEntity);
     }
 
     @Override
-    public Optional<Cliente> buscarClienteById(Long id) {
-        return clienteRepository.findById(id);
+    public Optional<ClienteDto> buscarClienteById(Long id) {
+        return Optional.ofNullable(clienteMapper.INSTANCE.ToClienteDto(clienteRepository.findById(id).get()));
     }
 
     @Override
-    public List<Cliente> buscarClienteByNombre(String nombre) {
-        return clienteRepository.findByNombre(nombre);
+    public List<ClienteDto> buscarClienteByNombre(String nombre) {
+        List<Cliente> clientes = clienteRepository.findByNombre(nombre);
+        return ListClientesToListClientesDto(clientes);
     }
 
     @Override
@@ -42,25 +43,35 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
-    public List<Cliente> buscarCliente() {
-        return clienteRepository.findAll();
+    public List<ClienteDto> buscarCliente() {
+        List<Cliente> clientes = clienteRepository.findAll();
+        return ListClientesToListClientesDto(clientes);
     }
 
     @Override
-    public Optional<Cliente> actualizarCliente(Long id, Cliente cliente) {
+    public Optional<ClienteDto> actualizarCliente(Long id, ClienteDto clienteDto) {
         return clienteRepository.findById(id).map(oldClient ->{
-            oldClient.setNombre(cliente.getNombre());
-            oldClient.setApellido(cliente.getApellido());
-            oldClient.setEmail(cliente.getEmail());
-            oldClient.setTelefono(cliente.getTelefono());
-            oldClient.setFechaNacimiento(cliente.getFechaNacimiento());
-            oldClient.setDirreccion(cliente.getDirreccion());
-            return clienteRepository.save(oldClient);
+            oldClient.setNombre(clienteDto.nombre());
+            oldClient.setApellido(clienteDto.apellido());
+            oldClient.setEmail(clienteDto.email());
+            oldClient.setTelefono(clienteDto.telefono());
+            oldClient.setFechaNacimiento(clienteDto.fechaNacimiento());
+            oldClient.setDirreccion(clienteDto.dirreccion());
+            clienteRepository.save(oldClient);
+            return clienteMapper.INSTANCE.ToClienteDtoWithId(oldClient);
         });
     }
 
     @Override
     public void borrarCliente(Long id) {
         clienteRepository.deleteById(id);
+    }
+
+    private List<ClienteDto> ListClientesToListClientesDto(List<Cliente> clientes) {
+        List<ClienteDto> clienteDtos = null;
+        for (Cliente cliente : clientes) {
+            clienteDtos.add(clienteMapper.INSTANCE.ToClienteDto(cliente));
+        }
+        return clienteDtos;
     }
 }
