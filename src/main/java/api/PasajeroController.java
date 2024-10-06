@@ -2,6 +2,7 @@ package api;
 
 import Servicio.PasajeroService;
 import com.example.taller1.Pasajero;
+import dto.PasajeroDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,28 +21,28 @@ public class PasajeroController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Pasajero>> getAllPasajeros(){
+    public ResponseEntity<List<PasajeroDto>> getAllPasajeros(){
         return ResponseEntity.ok(pasajeroService.buscarPasajeros());
     }
 
     @GetMapping("/id")
-    public ResponseEntity<Pasajero> getPasajeroById(@PathVariable Long id){
+    public ResponseEntity<PasajeroDto> getPasajeroById(@PathVariable Long id){
         return pasajeroService.buscarPasajeroById(id)
                 .map(c -> ResponseEntity.ok().body(c))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping
-    public ResponseEntity<Pasajero> createPasajero(@RequestBody Pasajero pasajero){
-        return createNewPasajero(pasajero);
+    public ResponseEntity<PasajeroDto> createPasajero(@RequestBody PasajeroDto pasajeroDto){
+        return createNewPasajero(pasajeroDto);
     }
 
     @PutMapping("/id")
-    public ResponseEntity<Pasajero> updatePasajero(@PathVariable Long id,@RequestBody Pasajero pasajero){
-        Optional<Pasajero> pasajeroUpdate = pasajeroService.actualizarPasajero(id, pasajero);
+    public ResponseEntity<PasajeroDto> updatePasajero(@PathVariable Long id,@RequestBody PasajeroDto pasajeroDto){
+        Optional<PasajeroDto> pasajeroUpdate = pasajeroService.actualizarPasajero(id, pasajeroDto);
         return pasajeroUpdate.map(c -> ResponseEntity.ok(c))
                 .orElseGet(() -> {
-                    return createNewPasajero(pasajero);
+                    return createNewPasajero(pasajeroDto);
                 });
     }
 
@@ -51,11 +52,11 @@ public class PasajeroController {
         return ResponseEntity.noContent().build();
     }
 
-    private ResponseEntity<Pasajero> createNewPasajero(Pasajero pasajero) {
-        Pasajero newPasajero = pasajeroService.guardarPasajero(pasajero);
+    private ResponseEntity<PasajeroDto> createNewPasajero(PasajeroDto pasajeroDto) {
+        PasajeroDto newPasajero = pasajeroService.guardarPasajero(pasajeroDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newPasajero.getId())
+                .buildAndExpand(newPasajero.id())
                 .toUri();
         return ResponseEntity.created(location).body(newPasajero);
     }

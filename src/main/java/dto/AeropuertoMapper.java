@@ -10,7 +10,7 @@ public interface AeropuertoMapper {
     AeropuertoMapper INSTANCE = Mappers.getMapper(AeropuertoMapper.class);
 
     @Mapping(source = "id", target = "id", ignore = true)
-    Aeropuerto toAerolineaSinID(AeropuertoDto aeropuertoDto);
+    Aeropuerto toAeropuertoSinID(AeropuertoDto aeropuertoDto);
 
     Aeropuerto toAeropuerto(AeropuertoDto aeropuertoDto);
 
