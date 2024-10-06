@@ -1,7 +1,6 @@
 package api;
 
 import Servicio.PasajeroService;
-import com.example.taller1.Pasajero;
 import dto.PasajeroDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +46,7 @@ public class PasajeroController {
     }
 
     @DeleteMapping("/id")
-    public ResponseEntity<Pasajero> deletePasajero(@PathVariable Long id){
+    public ResponseEntity<PasajeroDto> deletePasajero(@PathVariable Long id){
         pasajeroService.borrarPasajero(id);
         return ResponseEntity.noContent().build();
     }

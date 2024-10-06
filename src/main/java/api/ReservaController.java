@@ -1,7 +1,6 @@
 package api;
 
 import Servicio.ReservaService;
-import com.example.taller1.Reserva;
 import dto.ReservaDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +46,7 @@ public class ReservaController {
     }
 
     @DeleteMapping("/id")
-    public ResponseEntity<Reserva> deleteReserva(@PathVariable Long id) {
+    public ResponseEntity<ReservaDto> deleteReserva(@PathVariable Long id) {
         reservaService.borrarReserva(id);
         return ResponseEntity.noContent().build();
     }

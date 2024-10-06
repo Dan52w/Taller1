@@ -1,60 +1,77 @@
 package Servicio;
 
 import com.example.taller1.Vuelo;
+import dto.VueloDto;
+import dto.VueloMapper;
 import org.springframework.stereotype.Service;
 import respositoy.VueloRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class VueloServiceImpl implements VueloService{
     private VueloRepository vueloRepository;
+    private VueloMapper vueloMapper;
 
-    public VueloServiceImpl(VueloRepository vueloRepository) {
+    public VueloServiceImpl(VueloRepository vueloRepository, VueloMapper vueloMapper) {
         this.vueloRepository = vueloRepository;
+        this.vueloMapper = vueloMapper;
     }
 
     @Override
-    public Vuelo guardarVuelo(Vuelo vuelo) {
-        return vueloRepository.save(vuelo);
+    public VueloDto guardarVuelo(VueloDto vueloDto) {
+        Vuelo vuelo = vueloMapper.INSTANCE.toVuelo(vueloDto);;
+        return vueloMapper.INSTANCE.toVueloDto(vueloRepository.save(vuelo));
     }
 
     @Override
-    public Optional<Vuelo> buscarVueloById(Long id) {
-        return vueloRepository.findById(id);
+    public Optional<VueloDto> buscarVueloById(Long id) {
+        return vueloRepository.findById(id).map(vueloMapper::toVueloDto);
     }
 
     @Override
-    public List<Vuelo> buscarVuelosByNombre(String nombre) {
-        return vueloRepository.findByNombre(nombre);
+    public List<VueloDto> buscarVuelosByNombre(String nombre) {
+        List<Vuelo> vuelos = vueloRepository.findByNombre(nombre);
+        return ToListVuelosDto(vuelos);
     }
 
     @Override
-    public List<Vuelo> buscarVuelos() {
-        return vueloRepository.findAll();
+    public List<VueloDto> buscarVuelos() {
+        List<Vuelo> vuelos = vueloRepository.findAll();
+        return ToListVuelosDto(vuelos);
     }
 
     @Override
-    public List<Vuelo> buscarVueloByIds(List<Long> ids) {
-        return vueloRepository.findByIdIn(ids);
+    public List<VueloDto> buscarVueloByIds(List<Long> ids) {
+        List<Vuelo> vuelos = vueloRepository.findByIdIn(ids);
+        return ToListVuelosDto(vuelos);
     }
 
     @Override
-    public Optional<Vuelo> actualizarVuelo(Long id, Vuelo vuelo) {
+    public Optional<VueloDto> actualizarVuelo(Long id, VueloDto vueloDto) {
         return vueloRepository.findById(id).map(oldVuelo ->{
-            oldVuelo.setCapacidad(vuelo.getCapacidad());
-            oldVuelo.setDestino(vuelo.getDestino());
-            oldVuelo.setOrigen(vuelo.getOrigen());
-            oldVuelo.setHoraLlegada(vuelo.getHoraLlegada());
-            oldVuelo.setDuracion(vuelo.getDuracion());
-            oldVuelo.setFechaSalida(vuelo.getFechaSalida());
-            return vueloRepository.save(oldVuelo);
+            oldVuelo.setCapacidad(vueloDto.capacidad());
+            oldVuelo.setDestino(vueloDto.destino());
+            oldVuelo.setOrigen(vueloDto.origen());
+            oldVuelo.setHoraLlegada(vueloDto.horaLlegada());
+            oldVuelo.setDuracion(vueloDto.duracion());
+            oldVuelo.setFechaSalida(vueloDto.fechaSalida());
+            return vueloMapper.INSTANCE.toVueloDto(vueloRepository.save(oldVuelo));
         });
     }
 
     @Override
     public void borrarVuelo(Long id) {
         vueloRepository.deleteById(id);
+    }
+
+    private List<VueloDto> ToListVuelosDto(List<Vuelo> vuelos) {
+        List<VueloDto> vueloDtos = new ArrayList<>();
+        for (Vuelo vuelo : vuelos) {
+            vueloDtos.add(vueloMapper.toVueloDto(vuelo));
+        }
+        return vueloDtos;
     }
 }

@@ -1,7 +1,6 @@
 package api;
 
 import Servicio.AeropuertoService;
-import com.example.taller1.Aeropuerto;
 import dto.AeropuertoDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +46,7 @@ public class AeropuertoController {
     }
 
     @DeleteMapping("/id")
-    public ResponseEntity<Aeropuerto> deleteAeropuerto(@PathVariable Long id) {
+    public ResponseEntity<AeropuertoDto> deleteAeropuerto(@PathVariable Long id) {
         aeropuertoService.borrarAeropuerto(id);
         return ResponseEntity.noContent().build();
     }

@@ -1,16 +1,16 @@
 package Servicio;
 
-import com.example.taller1.Vuelo;
+import dto.VueloDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface VueloService {
-    default Vuelo guardarVuelo(Vuelo vuelo) {return null;}
-    default Optional<Vuelo> buscarVueloById(Long id) {return null;}
-    default List<Vuelo> buscarVuelosByNombre(String nombre) {return null;}
-    default List<Vuelo> buscarVuelos() {return null;}
-    default List<Vuelo> buscarVueloByIds(List<Long> ids) {return null;}
-    default Optional<Vuelo> actualizarVuelo(Long id,Vuelo vuelo) {return null;}
+    default VueloDto guardarVuelo(VueloDto vueloDto) {return null;}
+    default Optional<VueloDto> buscarVueloById(Long id) {return null;}
+    default List<VueloDto> buscarVuelosByNombre(String nombre) {return null;}
+    default List<VueloDto> buscarVuelos() {return null;}
+    default List<VueloDto> buscarVueloByIds(List<Long> ids) {return null;}
+    default Optional<VueloDto> actualizarVuelo(Long id,VueloDto vueloDto) {return null;}
     void borrarVuelo(Long id);
 }

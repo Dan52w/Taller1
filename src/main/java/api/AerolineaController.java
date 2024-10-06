@@ -1,7 +1,6 @@
 package api;
 
 import Servicio.AerolineaService;
-import com.example.taller1.Aerolinea;
 import dto.AerolineaDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -47,7 +46,7 @@ public class AerolineaController {
     }
 
     @DeleteMapping("/id")
-    public ResponseEntity<Aerolinea> deleteAerolinea(@PathVariable Long id) {
+    public ResponseEntity<AerolineaDto> deleteAerolinea(@PathVariable Long id) {
         aerolineaService.borrarAerolinea(id);
         return ResponseEntity.noContent().build();
     }
