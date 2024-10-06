@@ -36,6 +36,5 @@ public class Reserva {
             joinColumns = @JoinColumn(name = "idVuelo",  referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "idReserva", referencedColumnName = "id")
     )
-
     private List<Vuelo> vuelos;
 }

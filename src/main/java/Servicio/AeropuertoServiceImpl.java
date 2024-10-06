@@ -28,7 +28,7 @@ public class AeropuertoServiceImpl implements AeropuertoService{
 
     @Override
     public Optional<AeropuertoDto> buscarAeropuertoById(Long id) {
-        return Optional.ofNullable(aeropuertoMapper.INSTANCE.toAeropuertoDto(aeropuertoRepository.findById(id).get()));
+        return aeropuertoRepository.findById(id).map(aeropuertoMapper::toAeropuertoDto);
     }
 
     @Override

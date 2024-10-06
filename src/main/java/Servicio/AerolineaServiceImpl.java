@@ -28,7 +28,7 @@ public class AerolineaServiceImpl implements AerolineaService {
 
     @Override
     public Optional<AerolineaDto> buscarAerolineaById(Long id) {
-        return Optional.ofNullable(aerolineaMapper.INSTANCE.toAerolineaDtoWithId(aerolineaRepository.findById(id).get()));
+        return aerolineaRepository.findById(id).map(aerolineaMapper::toAerolineaDto);
     }
 
     @Override

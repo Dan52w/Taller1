@@ -28,7 +28,7 @@ public class ClienteServiceImpl implements ClienteService{
 
     @Override
     public Optional<ClienteDto> buscarClienteById(Long id) {
-        return Optional.ofNullable(clienteMapper.INSTANCE.ToClienteDtoWithId(clienteRepository.findById(id).get()));
+        return clienteRepository.findById(id).map(clienteMapper::ToClienteDtoWithId);
     }
 
     @Override

@@ -28,7 +28,7 @@ public class PasajeroServiceImpl implements PasajeroService{
 
     @Override
     public Optional<PasajeroDto> buscarPasajeroById(Long id) {
-        return Optional.ofNullable(pasajeroMapper.INSTANCE.toPasajeroDto(pasajeroRepository.findById(id).get()));
+        return pasajeroRepository.findById(id).map(pasajeroMapper::toPasajeroDto);
     }
 
     @Override
