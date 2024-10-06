@@ -1,16 +1,16 @@
 package Servicio;
 
-import com.example.taller1.Aeropuerto;
+import dto.AeropuertoDto;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AeropuertoService {
-    default Aeropuerto guardarAeropuerto(Aeropuerto aeropuerto) { return null;}
-    default Optional<Aeropuerto> buscarAeropuertoById(Long id) { return null;}
-    default List<Aeropuerto> buscarAeropuertoByNombre(String nombre) { return null;}
-    default List<Aeropuerto> buscarAeropuerto(){ return null;}
-    default List<Aeropuerto> buscarAeropuertoByIds(List<Long> ids) { return null;}
-    default Optional<Aeropuerto> actualizarAeropuerto(Long id,Aeropuerto aeropuerto) { return null;}
+    default AeropuertoDto guardarAeropuerto(AeropuertoDto aeropuertoDto) { return null;}
+    default Optional<AeropuertoDto> buscarAeropuertoById(Long id) { return null;}
+    default List<AeropuertoDto> buscarAeropuertoByNombre(String nombre) { return null;}
+    default List<AeropuertoDto> buscarAeropuerto(){ return null;}
+    default List<AeropuertoDto> buscarAeropuertoByIds(List<Long> ids) { return null;}
+    default Optional<AeropuertoDto> actualizarAeropuerto(Long id,AeropuertoDto aeropuertoDto) { return null;}
     void borrarAeropuerto(Long id);
 }

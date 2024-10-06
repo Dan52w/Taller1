@@ -34,19 +34,19 @@ public class AerolineaServiceImpl implements AerolineaService {
     @Override
     public List<AerolineaDto> buscarAerolineasByNombre(String nombre) {
         List<Aerolinea> aerolineas = aerolineaRepository.findByNombre(nombre);
-        return ListAerolineasToListAerolineasDto(aerolineas);
+        return ToListAerolineasDto(aerolineas);
     }
 
     @Override
     public List<AerolineaDto> buscarAerolinea() {
         List<Aerolinea> aerolineas = aerolineaRepository.findAll();
-        return ListAerolineasToListAerolineasDto(aerolineas);
+        return ToListAerolineasDto(aerolineas);
     }
 
     @Override
     public List<AerolineaDto> buscarAerolineaByIds(List<Long> ids) {
         List<Aerolinea> aerolineas = aerolineaRepository.finByIdIn(ids);
-        return ListAerolineasToListAerolineasDto(aerolineas);
+        return ToListAerolineasDto(aerolineas);
     }
 
     @Override
@@ -64,7 +64,7 @@ public class AerolineaServiceImpl implements AerolineaService {
         aerolineaRepository.deleteById(id);
     }
 
-    private List<AerolineaDto> ListAerolineasToListAerolineasDto(List<Aerolinea> aerolineas) {
+    private List<AerolineaDto> ToListAerolineasDto(List<Aerolinea> aerolineas) {
         List<AerolineaDto> aerolineasDto = new ArrayList<>();
         for (Aerolinea aerolinea : aerolineas) {
             aerolineasDto.add(aerolineaMapper.INSTANCE.toAerolineaDtoWithId(aerolinea));

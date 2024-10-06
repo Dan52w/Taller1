@@ -1,57 +1,74 @@
 package Servicio;
 
 import com.example.taller1.Aeropuerto;
+import dto.AeropuertoDto;
+import dto.AeropuertoMapper;
 import org.springframework.stereotype.Service;
 import respositoy.AeropuertoRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class AeropuertoServiceImpl implements AeropuertoService{
     private AeropuertoRepository aeropuertoRepository;
+    private AeropuertoMapper aeropuertoMapper;
 
-    public AeropuertoServiceImpl(AeropuertoRepository aeropuertoRepository) {
+    public AeropuertoServiceImpl(AeropuertoRepository aeropuertoRepository, AeropuertoMapper aeropuertoMapper) {
         this.aeropuertoRepository = aeropuertoRepository;
+        this.aeropuertoMapper = aeropuertoMapper;
     }
 
     @Override
-    public Aeropuerto guardarAeropuerto(Aeropuerto aeropuerto) {
-        return aeropuertoRepository.save(aeropuerto);
+    public AeropuertoDto guardarAeropuerto(AeropuertoDto aeropuertoDto) {
+        Aeropuerto aeropuerto = aeropuertoMapper.INSTANCE.toAeropuerto(aeropuertoDto);
+        return aeropuertoMapper.INSTANCE.toAeropuertoDto(aeropuertoRepository.save(aeropuerto));
     }
 
     @Override
-    public Optional<Aeropuerto> buscarAeropuertoById(Long id) {
-        return aeropuertoRepository.findById(id);
+    public Optional<AeropuertoDto> buscarAeropuertoById(Long id) {
+        return Optional.ofNullable(aeropuertoMapper.INSTANCE.toAeropuertoDto(aeropuertoRepository.findById(id).get()));
     }
 
     @Override
-    public List<Aeropuerto> buscarAeropuertoByNombre(String nombre) {
-        return aeropuertoRepository.findByNombre(nombre);
+    public List<AeropuertoDto> buscarAeropuertoByNombre(String nombre) {
+        List<Aeropuerto> aeropuertos = aeropuertoRepository.findByNombre(nombre);
+        return ToListAeropuertosDto(aeropuertos);
     }
 
     @Override
-    public List<Aeropuerto> buscarAeropuerto() {
-        return aeropuertoRepository.findAll();
+    public List<AeropuertoDto> buscarAeropuerto() {
+        List<Aeropuerto> aeropuertos = aeropuertoRepository.findAll();
+        return ToListAeropuertosDto(aeropuertos);
     }
 
     @Override
-    public List<Aeropuerto> buscarAeropuertoByIds(List<Long> ids) {
-        return aeropuertoRepository.findByIdIn(ids);
+    public List<AeropuertoDto> buscarAeropuertoByIds(List<Long> ids) {
+        List<Aeropuerto> aeropuertos = aeropuertoRepository.findByIdIn(ids);
+        return ToListAeropuertosDto(aeropuertos);
     }
 
     @Override
-    public Optional<Aeropuerto> actualizarAeropuerto(Long id, Aeropuerto aeropuerto) {
+    public Optional<AeropuertoDto> actualizarAeropuerto(Long id, AeropuertoDto aeropuertoDto) {
         return aeropuertoRepository.findById(id).map(oldAeropuerto ->{
-            oldAeropuerto.setNombre(aeropuerto.getNombre());
-            oldAeropuerto.setCiudad(aeropuerto.getCiudad());
-            oldAeropuerto.setPais(aeropuerto.getPais());
-            return aeropuertoRepository.save(oldAeropuerto);
+            oldAeropuerto.setNombre(aeropuertoDto.nombre());
+            oldAeropuerto.setCiudad(aeropuertoDto.ciudad());
+            oldAeropuerto.setPais(aeropuertoDto.pais());
+            return aeropuertoMapper.INSTANCE.toAeropuertoDto(aeropuertoRepository.save(oldAeropuerto));
         });
     }
 
     @Override
     public void borrarAeropuerto(Long id) {
         aeropuertoRepository.deleteById(id);
+    }
+
+    private List<AeropuertoDto> ToListAeropuertosDto(List<Aeropuerto> aeropuertos) {
+        List<AeropuertoDto> aeropuertosDto = new ArrayList<>();
+        for (Aeropuerto aeropuerto : aeropuertos) {
+            aeropuertosDto.add(aeropuertoMapper.toAeropuertoDto(aeropuerto));
+        }
+        return aeropuertosDto;
     }
 }

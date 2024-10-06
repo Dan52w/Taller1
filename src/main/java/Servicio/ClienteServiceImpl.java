@@ -34,19 +34,19 @@ public class ClienteServiceImpl implements ClienteService{
     @Override
     public List<ClienteDto> buscarClienteByNombre(String nombre) {
         List<Cliente> clientes = clienteRepository.findByNombre(nombre);
-        return ListClientesToListClientesDto(clientes);
+        return ToListClientesDto(clientes);
     }
 
     @Override
     public List<ClienteDto> buscarClientebyIds(List<Long> ids) {
         List<Cliente> clientes = clienteRepository.findByIdIn(ids);
-        return ListClientesToListClientesDto(clientes);
+        return ToListClientesDto(clientes);
     }
 
     @Override
     public List<ClienteDto> buscarCliente() {
         List<Cliente> clientes = clienteRepository.findAll();
-        return ListClientesToListClientesDto(clientes);
+        return ToListClientesDto(clientes);
     }
 
     @Override
@@ -68,7 +68,7 @@ public class ClienteServiceImpl implements ClienteService{
         clienteRepository.deleteById(id);
     }
 
-    private List<ClienteDto> ListClientesToListClientesDto(List<Cliente> clientes) {
+    private List<ClienteDto> ToListClientesDto(List<Cliente> clientes) {
         List<ClienteDto> clienteDtos = null;
         for (Cliente cliente : clientes) {
             clienteDtos.add(clienteMapper.INSTANCE.ToClienteDto(cliente));
