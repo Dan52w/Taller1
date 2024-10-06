@@ -19,11 +19,10 @@ public interface ClienteMapper {
     @Name("ConID")
     Cliente ToClienteWithId(ClienteDto clienteDto);
 
-    @Name("ConID")
-    @Mapping(target = "nombre", source = "nombre")
-    ClienteDto ToClienteDto(Cliente cliente);
-
     @Name("SinID")
     @Mapping(target = "id", source = "id", ignore = true)
+    ClienteDto ToClienteDto(Cliente cliente);
+
+    @Name("CinID")
     ClienteDto ToClienteDtoWithId(Cliente cliente);
 }

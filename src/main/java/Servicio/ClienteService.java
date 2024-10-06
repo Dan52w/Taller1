@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ClienteService {
-    default ClienteDto guardarCliente(ClienteDto cliente) { return null;}
+    default ClienteDto guardarCliente(ClienteDto clienteDto) { return null;}
     default Optional<ClienteDto> buscarClienteById(Long id) { return null;}
     default List<ClienteDto> buscarClienteByNombre(String nombre) { return null;}
     default List<ClienteDto> buscarCliente() {return null;}

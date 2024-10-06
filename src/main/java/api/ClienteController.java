@@ -1,16 +1,13 @@
 package api;
 
 import Servicio.ClienteService;
-import com.example.taller1.Cliente;
 import dto.ClienteDto;
-import dto.ClienteWithIDDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 @RestController

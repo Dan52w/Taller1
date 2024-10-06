@@ -20,15 +20,15 @@ public class ClienteServiceImpl implements ClienteService{
     }
 
     @Override
-    public ClienteDto guardarCliente(ClienteDto cliente) {
-        Cliente clienteEntity = clienteMapper.INSTANCE.ToCliente(cliente);
+    public ClienteDto guardarCliente(ClienteDto clienteDto) {
+        Cliente clienteEntity = clienteMapper.INSTANCE.ToCliente(clienteDto);
         clienteRepository.save(clienteEntity);
         return clienteMapper.INSTANCE.ToClienteDtoWithId(clienteEntity);
     }
 
     @Override
     public Optional<ClienteDto> buscarClienteById(Long id) {
-        return Optional.ofNullable(clienteMapper.INSTANCE.ToClienteDto(clienteRepository.findById(id).get()));
+        return Optional.ofNullable(clienteMapper.INSTANCE.ToClienteDtoWithId(clienteRepository.findById(id).get()));
     }
 
     @Override

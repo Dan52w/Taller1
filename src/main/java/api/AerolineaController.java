@@ -2,6 +2,7 @@ package api;
 
 import Servicio.AerolineaService;
 import com.example.taller1.Aerolinea;
+import dto.AerolineaDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -20,28 +21,28 @@ public class AerolineaController {
     }
 
     @GetMapping()
-    public ResponseEntity<List<Aerolinea>> getAllAerolineas() {
+    public ResponseEntity<List<AerolineaDto>> getAllAerolineas() {
         return ResponseEntity.ok(aerolineaService.buscarAerolinea());
     }
 
     @GetMapping("/id")
-    public ResponseEntity<Aerolinea> getAerolineaById(@PathVariable Long id) {
+    public ResponseEntity<AerolineaDto> getAerolineaById(@PathVariable Long id) {
         return aerolineaService.buscarAerolineaById(id)
                 .map(c -> ResponseEntity.ok().body(c))
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @PostMapping()
-    public ResponseEntity<Aerolinea> createAerolinea(@RequestBody Aerolinea aerolinea) {
-        return createNewAerolinea(aerolinea);
+    public ResponseEntity<AerolineaDto> createAerolinea(@RequestBody AerolineaDto aerolineaDto) {
+        return createNewAerolinea(aerolineaDto);
     }
 
     @PutMapping("/id")
-    public ResponseEntity<Aerolinea> updateAerolinea(@PathVariable Long id,@RequestBody Aerolinea aerolinea) {
-        Optional<Aerolinea> aerolineaUpdate = aerolineaService.actualizarAerolinea(id, aerolinea);
+    public ResponseEntity<AerolineaDto> updateAerolinea(@PathVariable Long id,@RequestBody AerolineaDto aerolineaDto) {
+        Optional<AerolineaDto> aerolineaUpdate = aerolineaService.actualizarAerolinea(id, aerolineaDto);
         return aerolineaUpdate.map(c -> ResponseEntity.ok(c))
                 .orElseGet(() -> {
-                    return createNewAerolinea(aerolinea);
+                    return createNewAerolinea(aerolineaDto);
                 });
     }
 
@@ -51,11 +52,11 @@ public class AerolineaController {
         return ResponseEntity.noContent().build();
     }
 
-    private ResponseEntity<Aerolinea> createNewAerolinea(Aerolinea aerolinea) {
-        Aerolinea newAerolinea = aerolineaService.guardarAerolinea(aerolinea);
+    private ResponseEntity<AerolineaDto> createNewAerolinea(AerolineaDto aerolineaDto) {
+        AerolineaDto newAerolinea = aerolineaService.guardarAerolinea(aerolineaDto);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newAerolinea.getId())
+                .buildAndExpand(newAerolinea.id())
                 .toUri();
         return ResponseEntity.created(location).body(newAerolinea);
     }
